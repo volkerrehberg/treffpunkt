@@ -57,15 +57,15 @@ function onMapClick(e) {
 
 function zeigeTreffpunkt() {
     console.log("Button gecklicked");
-    //const marker = L.marker([51.5, 10.30]).addTo(map)
-    const marker = L.marker(findeTreffpunkt()).addTo(map)
 
+    const dummyKoordinaten = [
+        [10, 20],
+        [30, 40],
+        [50, 60]
+    ];
+
+    const marker = L.marker(findeTreffpunkt(dummyKoordinaten)).addTo(map)
     .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
-    // popup.setLatLng(e.latlng)
-    //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
-    //     .openOn(map);
-    // console.log(e.latlng);
-    // add_point(e.latlng.lng, e.latlng.lat);
 }
 
 map.on('click', onMapClick);
