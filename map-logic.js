@@ -1,24 +1,24 @@
-var southWest = L.latLng(49, -1), northEast = L.latLng(52, 1);
+var southWest = L.latLng(49, 10), northEast = L.latLng(52, 12);
 var bounds = L.latLngBounds(southWest, northEast);
 
 const map = L.map('map', {
     maxBounds: bounds,
     maxBoundsViscosity: 1.0,
     zoomControl: false
-}).setView([51.505, -0.09], 13);
+}).setView([51.505, 10.00], 13);
 
-map.dragging.disable();
-map.scrollWheelZoom.disable();
+//map.dragging.disable();
+//map.scrollWheelZoom.disable();
 
 const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-const marker = L.marker([51.5, -0.09]).addTo(map)
+const marker = L.marker([51.5, 10.09]).addTo(map)
     .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
 
-const circle = L.circle([51.508, -0.11], {
+const circle = L.circle([51.508, 10.10], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
