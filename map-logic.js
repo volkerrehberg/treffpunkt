@@ -1,13 +1,13 @@
 import { findeTreffpunkt } from './treffpunktfinder.js';
 
-var southWest = L.latLng(49, 10), northEast = L.latLng(52, 12);
+var southWest = L.latLng(40, 10), northEast = L.latLng(60, 12);
 var bounds = L.latLngBounds(southWest, northEast);
 
 const map = L.map('map', {
     maxBounds: bounds,
     maxBoundsViscosity: 1.0,
     zoomControl: false
-}).setView([51.505, 10.00], 13);
+}).setView([51.505, 10.00], 6);
 
 //map.dragging.disable();
 //map.scrollWheelZoom.disable();
