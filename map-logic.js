@@ -52,7 +52,7 @@ function onMapClick(e) {
     choosenCoordinates.push([e.latlng.lat, e.latlng.lng]);
 
     const chooseninput = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map)
-    .bindPopup('Test').openPopup();
+    .bindPopup('Ausgangspunkt gesetzt').openPopup();
 
     // popup.setLatLng(e.latlng)
     //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
