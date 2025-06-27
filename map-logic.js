@@ -1,3 +1,5 @@
+import { findeTreffpunkt } from './treffpunktfinder.js';
+
 var southWest = L.latLng(49, 10), northEast = L.latLng(52, 12);
 var bounds = L.latLngBounds(southWest, northEast);
 
@@ -53,4 +55,19 @@ function onMapClick(e) {
     add_point(e.latlng.lng, e.latlng.lat);
 }
 
+function zeigeTreffpunkt() {
+    console.log("Button gecklicked");
+    //const marker = L.marker([51.5, 10.30]).addTo(map)
+    const marker = L.marker(findeTreffpunkt()).addTo(map)
+
+    .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
+    // popup.setLatLng(e.latlng)
+    //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
+    //     .openOn(map);
+    // console.log(e.latlng);
+    // add_point(e.latlng.lng, e.latlng.lat);
+}
+
 map.on('click', onMapClick);
+
+window.zeigeTreffpunkt = zeigeTreffpunkt; 
