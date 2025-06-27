@@ -18,14 +18,14 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const marker = L.marker([51.5, 10.09]).addTo(map)
-    .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+     .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
 
-const circle = L.circle([51.508, 10.10], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(map).bindPopup('I am a circle.');
+// const circle = L.circle([51.508, 10.10], {
+//     color: 'red',
+//     fillColor: '#f03',
+//     fillOpacity: 0.5,
+//     radius: 500
+// }).addTo(map).bindPopup('I am a circle.');
 
 const polygon = L.polygon([
     [51.509, -0.08],
@@ -49,24 +49,20 @@ async function add_point(lon, lat) {
 }
 
 function onMapClick(e) {
-    choosenCoordinates.push([e.latlng.lng, e.latlng.lat]);
-    popup.setLatLng(e.latlng)
-        .setContent(`You clicked the map at ${e.latlng.toString()}`)
-        .openOn(map);
-    //console.log(e.latlng);
-    //add_point(e.latlng.lng, e.latlng.lat);
+    choosenCoordinates.push([e.latlng.lat, e.latlng.lng]);
+
+    const chooseninput = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map)
+    .bindPopup('Test').openPopup();
+
+    // popup.setLatLng(e.latlng)
+    //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
+    //     .openOn(map);
 
     console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
 }
 
 function zeigeTreffpunkt() {
     console.log("Button gecklicked");
-
-    const dummyKoordinaten = [
-        [10, 20],
-        [30, 40],
-        [50, 60]
-    ];
 
     const marker = L.marker(findeTreffpunkt(choosenCoordinates)).addTo(map)
     .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
