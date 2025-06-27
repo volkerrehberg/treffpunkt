@@ -16,6 +16,12 @@
   <!-- Main logic -->
   <script type="module" src="map-logic.js"></script>
 
+  <label for="coordinate-input">Enter Coordinate: latitude: </label>
+  <input type="text" id="coordinate-input-lat" name="coordinate-input-lat" />
+  <label for="coordinate-input"> longitude: </label>
+  <input type="text" id="coordinate-input-lon" name="coordinate-input-lon" />
+  <button onclick="addCoordinate()">Add Coordinate</button>
+  <br>
   <button onclick="zeigeTreffpunkt()">Zeige Treffpunkt!</button>
 </body>
 </html>

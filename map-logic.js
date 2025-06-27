@@ -42,6 +42,21 @@ const choosenCoordinates = [];
 
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
+function addCoordinate() {
+    const latInput = document.getElementById('coordinate-input-lat').value;
+    const lonInput = document.getElementById('coordinate-input-lon').value;
+    
+    const lat = parseFloat(latInput);
+    const lon = parseFloat(lonInput);
+
+    console.log('Adding coordinate: ' + lat + ', ' + lon);
+
+    choosenCoordinates.push([lat, lon]);
+    const chooseninput = L.marker([lat, lon]).addTo(map)
+        .bindPopup('Ausgangspunkt gesetzt').openPopup();
+    console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
+}
+
 async function add_point(lon, lat) {
     const sql = N.neon(db_url);
     const pt = await sql.query(`SELECT meinetestfunktion(${lon},${lat});`);
@@ -49,10 +64,13 @@ async function add_point(lon, lat) {
 }
 
 function onMapClick(e) {
+    console.log("Map clicked at: " + e.latlng.toString());
     choosenCoordinates.push([e.latlng.lat, e.latlng.lng]);
 
     const chooseninput = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map)
     .bindPopup('Ausgangspunkt gesetzt').openPopup();
+
+    console.log('Adding coordinate: ' + e.latlng.lat + ', ' + e.latlng.lng);
 
     // popup.setLatLng(e.latlng)
     //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
@@ -89,4 +107,5 @@ function zeigeTreffpunkt() {
 
 map.on('click', onMapClick);
 
-window.zeigeTreffpunkt = zeigeTreffpunkt; 
+window.zeigeTreffpunkt = zeigeTreffpunkt;
+window.addCoordinate = addCoordinate;
