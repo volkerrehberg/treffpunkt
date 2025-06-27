@@ -161,12 +161,12 @@ const blueIcon = new L.Icon({
     shadowSize: [41, 41]
 });
 
-function zeigeTreffpunkt() {
+async function zeigeTreffpunkt() {
     console.log("Button gecklicked");
     // const marker = L.marker(, { icon: blueIcon })).addTo(map)
     // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 
-    const chooseninput = L.circleMarker(findeTreffpunkt(choosenCoordinates), {
+    const chooseninput = L.circleMarker(await findeTreffpunkt(choosenCoordinates), {
         radius: 10,
         color: 'green',       // Randfarbe
         fillColor: 'green',   // Füllfarbe
@@ -179,6 +179,6 @@ function zeigeTreffpunkt() {
 
 map.on('click', onMapClick);
 
-window.zeigeTreffpunkt = zeigeTreffpunkt;
+window.zeigeTreffpunkt = await zeigeTreffpunkt;
 window.addCoordinate = addCoordinate;
 window.addCity = addCity;
