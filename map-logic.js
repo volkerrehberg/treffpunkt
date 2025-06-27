@@ -35,10 +35,10 @@ const polygon = L.polygon([
 
 const choosenCoordinates = [];
 
-const popup = L.popup()
-    .setLatLng([51.513, -0.09])
-    .setContent('I am a standalone popup.')
-    .openOn(map);
+// const popup = L.popup()
+//     .setLatLng([51.513, -0.09])
+//     .setContent('I am a standalone popup.')
+//     .openOn(map);
 
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
