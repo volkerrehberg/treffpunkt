@@ -42,6 +42,69 @@ const choosenCoordinates = [];
 
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
+function addCity() {
+    const cityInput = document.getElementById('city-input').value;
+    if (!cityInput) {
+        console.error('Please enter a city name.');
+        return;
+    }
+    getCoordinatesForCity(cityInput).then(coordinates => {
+        if (coordinates) {
+            const [lat, lon] = coordinates;
+            console.log('Adding city coordinates: ' + lat + ', ' + lon);
+            choosenCoordinates.push([lat, lon]);
+            const chooseninput = L.marker([lat, lon]).addTo(map)
+                .bindPopup(`Ausgangspunkt gesetzt: ${cityInput}`).openPopup();
+            console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
+        } else {
+            console.error('Could not find coordinates for the city: ' + cityInput);
+        }
+    });
+}
+
+async function getCoordinatesForCity(cityName) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`;
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Accept-Language': 'de'
+            }
+        });
+        const data = await response.json();
+        if (data && data.length > 0) {
+            const lat = parseFloat(data[0].lat);
+            const lon = parseFloat(data[0].lon);
+            return [lat, lon];
+        } else {
+            console.error('City not found');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching city coordinates:', error);
+        return null;
+    }
+}
+
+function parseCoordinate(input) {
+    // Check for DMS format (e.g. 51°30'30"N or 10 30 30 E)
+    const dmsRegex = /^(-?\d+)[°\s]+(\d+)[\'\s]+(\d+(?:\.\d+)?)[\"\s]*([NSEW])?$/i;
+    const match = input.trim().match(dmsRegex);
+    if (match) {
+        let deg = parseFloat(match[1]);
+        let min = parseFloat(match[2]);
+        let sec = parseFloat(match[3]);
+        let dir = match[4] ? match[4].toUpperCase() : null;
+        let dec = Math.abs(deg) + min / 60 + sec / 3600;
+        if (deg < 0) dec = -dec;
+        if (dir === 'S' || dir === 'W') dec = -Math.abs(dec);
+        return dec;
+    }
+    // Try to parse as float
+    const floatVal = parseFloat(input);
+    if (!isNaN(floatVal)) return floatVal;
+    return NaN; // Invalid input
+}
+
 function addCoordinate() {
     const latInput = document.getElementById('coordinate-input-lat').value;
     const lonInput = document.getElementById('coordinate-input-lon').value;
@@ -50,8 +113,8 @@ function addCoordinate() {
         console.error('Please enter both latitude and longitude.');
         return;
     } else {   
-        const lat = parseFloat(latInput);
-        const lon = parseFloat(lonInput);
+        const lat = parseCoordinate(latInput);
+        const lon = parseCoordinate(lonInput);
         if (isNaN(lat) || isNaN(lon)) {
             console.error('Invalid latitude or longitude values.');
             return;
@@ -118,3 +181,4 @@ map.on('click', onMapClick);
 
 window.zeigeTreffpunkt = zeigeTreffpunkt;
 window.addCoordinate = addCoordinate;
+window.addCity = addCity;
