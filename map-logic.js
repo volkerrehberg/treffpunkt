@@ -33,6 +33,8 @@ const polygon = L.polygon([
     [51.51, -0.047]
 ]).addTo(map).bindPopup('I am a polygon.');
 
+const choosenCoordinates = [];
+
 const popup = L.popup()
     .setLatLng([51.513, -0.09])
     .setContent('I am a standalone popup.')
@@ -47,12 +49,14 @@ async function add_point(lon, lat) {
 }
 
 function onMapClick(e) {
-    console.log($("#name").val());
+    choosenCoordinates.push([e.latlng.lng, e.latlng.lat]);
     popup.setLatLng(e.latlng)
         .setContent(`You clicked the map at ${e.latlng.toString()}`)
         .openOn(map);
-    console.log(e.latlng);
-    add_point(e.latlng.lng, e.latlng.lat);
+    //console.log(e.latlng);
+    //add_point(e.latlng.lng, e.latlng.lat);
+
+    console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
 }
 
 function zeigeTreffpunkt() {
@@ -64,7 +68,7 @@ function zeigeTreffpunkt() {
         [50, 60]
     ];
 
-    const marker = L.marker(findeTreffpunkt(dummyKoordinaten)).addTo(map)
+    const marker = L.marker(findeTreffpunkt(choosenCoordinates)).addTo(map)
     .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 }
 
