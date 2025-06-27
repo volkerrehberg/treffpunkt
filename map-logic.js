@@ -17,8 +17,8 @@ const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-const marker = L.marker([51.5, 10.09]).addTo(map)
-     .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+// const marker = L.marker([51.5, 10.09]).addTo(map)
+//      .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
 
 // const circle = L.circle([51.508, 10.10], {
 //     color: 'red',
