@@ -46,15 +46,24 @@ function addCoordinate() {
     const latInput = document.getElementById('coordinate-input-lat').value;
     const lonInput = document.getElementById('coordinate-input-lon').value;
     
-    const lat = parseFloat(latInput);
-    const lon = parseFloat(lonInput);
+    if (!latInput || !lonInput) {
+        console.error('Please enter both latitude and longitude.');
+        return;
+    } else {   
+        const lat = parseFloat(latInput);
+        const lon = parseFloat(lonInput);
+        if (isNaN(lat) || isNaN(lon)) {
+            console.error('Invalid latitude or longitude values.');
+            return;
+        } else {
+            console.log('Adding coordinate: ' + lat + ', ' + lon);
 
-    console.log('Adding coordinate: ' + lat + ', ' + lon);
-
-    choosenCoordinates.push([lat, lon]);
-    const chooseninput = L.marker([lat, lon]).addTo(map)
-        .bindPopup('Ausgangspunkt gesetzt').openPopup();
-    console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
+            choosenCoordinates.push([lat, lon]);
+            const chooseninput = L.marker([lat, lon]).addTo(map)
+                .bindPopup('Ausgangspunkt gesetzt').openPopup();
+            console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
+        }
+    }
 }
 
 async function add_point(lon, lat) {
