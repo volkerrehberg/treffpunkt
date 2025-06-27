@@ -61,11 +61,30 @@ function onMapClick(e) {
     console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
 }
 
+
+const blueIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [50, 55],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
 function zeigeTreffpunkt() {
     console.log("Button gecklicked");
+    // const marker = L.marker(, { icon: blueIcon })).addTo(map)
+    // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 
-    const marker = L.marker(findeTreffpunkt(choosenCoordinates)).addTo(map)
-    .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
+    const chooseninput = L.circleMarker(findeTreffpunkt(choosenCoordinates), {
+        radius: 10,
+        color: 'green',       // Randfarbe
+        fillColor: 'green',   // Füllfarbe
+        fillOpacity: 0.8
+    })
+.addTo(map)
+.bindPopup('<b>Hier ist der Treffpunkt!</b>')
+.openPopup();
 }
 
 map.on('click', onMapClick);
