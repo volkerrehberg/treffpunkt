@@ -2,30 +2,49 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Leaflet + NeonDB</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <title>Finde euren Treffpunkt!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
-<body>
-  <div id="map" style="height: 600px;"></div>
+<body class="p-6 bg-gray-100">
+  <div class="flex gap-10 items-start">
+    <!-- Karte -->
+    <div id="map" class="h-[600px] w-[600px] rounded shadow-lg"></div>
 
-  <!-- Import Neon DB module -->
+    <!-- Formular & Buttons -->
+    <div class="flex flex-col gap-4 text-sm bg-white p-4 rounded shadow-md w-80">
+      <div>
+        <label for="coordinate-input-lat" class="block font-medium">Latitude:</label>
+        <input type="text" id="coordinate-input-lat" name="coordinate-input-lat" class="w-full p-2 border rounded" />
+      </div>
+
+      <div>
+        <label for="coordinate-input-lon" class="block font-medium">Longitude:</label>
+        <input type="text" id="coordinate-input-lon" name="coordinate-input-lon" class="w-full p-2 border rounded" />
+      </div>
+
+      <button onclick="addCoordinate()" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+        Add Coordinate
+      </button>
+
+      <div>
+        <label for="city-input" class="block font-medium">City:</label>
+        <input type="text" id="city-input" name="city-input" class="w-full p-2 border rounded" />
+      </div>
+
+      <button onclick="addCity()" class="bg-green-500 text-white py-2 rounded hover:bg-green-600">
+        Add City
+      </button>
+
+      <button onclick="zeigeTreffpunkt()" class="bg-purple-500 text-white py-2 rounded hover:bg-purple-600">
+        Zeige Treffpunkt!
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script type="module" src="neon-import.js"></script>
-
-  <!-- Main logic -->
   <script type="module" src="map-logic.js"></script>
-
-  <label for="coordinate-input">Enter Coordinate: latitude: </label>
-  <input type="text" id="coordinate-input-lat" name="coordinate-input-lat" />
-  <label for="coordinate-input"> longitude: </label>
-  <input type="text" id="coordinate-input-lon" name="coordinate-input-lon" />
-  <button onclick="addCoordinate()">Add Coordinate</button>
-  <br>
-  <label for="coordinate-input">City: </label>
-  <input type="text" id="city-input" name="city-input" />
-  <button onclick="addCity()">Add City</button>
-  <br>
-  <button onclick="zeigeTreffpunkt()">Zeige Treffpunkt!</button>
 </body>
 </html>

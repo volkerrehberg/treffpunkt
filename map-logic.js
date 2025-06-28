@@ -34,6 +34,11 @@ const polygon = L.polygon([
 ]).addTo(map).bindPopup('I am a polygon.');
 
 const choosenCoordinates = [];
+const choosenFilters = {
+    see : true,
+    kino : false,
+    bahnhof : false,
+};
 
 // const popup = L.popup()
 //     .setLatLng([51.513, -0.09])
@@ -166,7 +171,7 @@ async function zeigeTreffpunkt() {
     // const marker = L.marker(, { icon: blueIcon })).addTo(map)
     // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 
-    const chooseninput = L.circleMarker(await findeTreffpunktPhysDist(choosenCoordinates), {
+    const chooseninput = L.circleMarker(await findeTreffpunktPhysDist(choosenCoordinates, choosenFilters), {
         radius: 10,
         color: 'green',       // Randfarbe
         fillColor: 'green',   // Füllfarbe

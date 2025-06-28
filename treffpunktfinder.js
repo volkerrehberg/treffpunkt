@@ -1,4 +1,4 @@
-export async function findeTreffpunkt(inputKoordinaten) {
+export async function findeTreffpunkt(inputKoordinaten, inputFilter) {
   console.log('Suche treffpunkt zu input koordinaten: ' + inputKoordinaten);
   let lats = 0;
   let lons = 0;
@@ -22,7 +22,7 @@ export async function findeTreffpunkt(inputKoordinaten) {
   return pt.find_meeting_point[0];
 }
 
-export async function findeTreffpunktPhysDist(inputKoordinaten) {
+export async function findeTreffpunktPhysDist(inputKoordinaten, inputFilter) {
   console.log('Berechne physikalischen Treffpunkt für Koordinaten: ' + inputKoordinaten);
   const l = inputKoordinaten.length;
   let x = 0, y = 0, z = 0;
