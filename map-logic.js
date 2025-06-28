@@ -1,32 +1,19 @@
 import { findeTreffpunkt, findeTreffpunktPhysDist } from './treffpunktfinder.js';
 import { findPOIs } from './pointsofinterestfinder.js';
 
-var southWest = L.latLng(40, 10), northEast = L.latLng(60, 12);
+var southWest = L.latLng(20, -20), northEast = L.latLng(80, 30);
 var bounds = L.latLngBounds(southWest, northEast);
 
 const map = L.map('map', {
     maxBounds: bounds,
-    maxBoundsViscosity: 1.0,
+    maxBoundsViscosity: 0.2,
     zoomControl: false
 }).setView([51.505, 10.00], 6);
-
-//map.dragging.disable();
-//map.scrollWheelZoom.disable();
 
 const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-
-// const marker = L.marker([51.5, 10.09]).addTo(map)
-//      .bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
-
-// const circle = L.circle([51.508, 10.10], {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//     radius: 500
-// }).addTo(map).bindPopup('I am a circle.');
 
 const polygon = L.polygon([
     [51.509, -0.08],
@@ -40,11 +27,6 @@ const choosenFilters = {
     kino: false,
     bahnhof: false,
 };
-
-// const popup = L.popup()
-//     .setLatLng([51.513, -0.09])
-//     .setContent('I am a standalone popup.')
-//     .openOn(map);
 
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
@@ -160,10 +142,6 @@ function onMapClick(e) {
         .bindPopup('Ausgangspunkt gesetzt').openPopup();
 
     console.log('Adding coordinate: ' + e.latlng.lat + ', ' + e.latlng.lng);
-
-    // popup.setLatLng(e.latlng)
-    //     .setContent(`You clicked the map at ${e.latlng.toString()}`)
-    //     .openOn(map);
 
     console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
 }
