@@ -264,12 +264,16 @@ function hinzufuegenCityBlock() {
 }
 
 window.removeCity = function (button) {
-    const block = button.closest('.city-block');
-    if (block) {
-        block.remove();
-    } else {
-        console.warn('Kein .city-block Element gefunden zum Entfernen.');
-    }
+
+    // Seite neu laden statt Block entfernen
+    window.location.reload();
+
+    // const block = button.closest('.city-block');
+    // if (block) {
+    //     block.remove();
+    // } else {
+    //     console.warn('Kein .city-block Element gefunden zum Entfernen.');
+    // }
 };
 
 
