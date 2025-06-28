@@ -266,10 +266,10 @@ function hinzufuegenCityBlock() {
       <label class="font-medium whitespace-nowrap">City:</label>
       <input type="text" name="city-input" class="flex-grow min-w-0 p-2 border rounded" />
       <button onclick="addCity(this)" class="shrink-0 bg-black text-white py-2 px-3 rounded hover:bg-gray-800">
-        Add
+        Hinzufügen
       </button>
       <button onclick="removeCity(this)" class="shrink-0 bg-red-600 text-white py-2 px-3 rounded hover:bg-red-700">
-        Entfernen
+        X
       </button>
     `;
 
