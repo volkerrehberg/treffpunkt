@@ -31,7 +31,7 @@ const choosenFilters = {
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
 window.addCity = function (button) {
-  const cityInput = button.parentElement.querySelector('input[name="city-input"]').value;
+    const cityInput = button.parentElement.querySelector('input[name="city-input"]').value;
     if (!cityInput) {
         console.error('Please enter a city name.');
         return;
@@ -50,15 +50,15 @@ window.addCity = function (button) {
     });
 }
 
-function toggleFilter (checkbox) {
-  const name = checkbox.name;
-  if (choosenFilters.hasOwnProperty(name)) {
-    choosenFilters[name] = checkbox.checked;
-    console.log(`Filter geändert: ${name} = ${checkbox.checked}`);
-    console.log(choosenFilters);
-  } else {
-    console.warn(`Unbekannter Filter: ${name}`);
-  }
+function toggleFilter(checkbox) {
+    const name = checkbox.name;
+    if (choosenFilters.hasOwnProperty(name)) {
+        choosenFilters[name] = checkbox.checked;
+        console.log(`Filter geändert: ${name} = ${checkbox.checked}`);
+        console.log(choosenFilters);
+    } else {
+        console.warn(`Unbekannter Filter: ${name}`);
+    }
 };
 
 async function getCoordinatesForCity(cityName) {
@@ -144,6 +144,15 @@ function onMapClick(e) {
     console.log('Adding coordinate: ' + e.latlng.lat + ', ' + e.latlng.lng);
 
     console.log('Augewaehlte Koordinaten: ' + choosenCoordinates);
+
+    // input feld füllen
+    const cityInputs = document.querySelectorAll('input[name="city-input"]');
+    for (let input of cityInputs) {
+        if (!input.value.trim()) {
+            input.value = `Lat ${e.latlng.lat.toFixed(4)}, Lon ${e.latlng.lng.toFixed(4)}`;
+            break;
+        }
+    }
 }
 
 
@@ -158,12 +167,12 @@ const blueIcon = new L.Icon({
 
 async function zeigeTreffpunkt() {
     console.log("Button gecklicked");
- 
+
     const tp = await findeTreffpunkt(choosenCoordinates, choosenFilters);
     var point = await findeTreffpunktPhysDist(choosenCoordinates, choosenFilters);
     if (tp.length > 0) {
         point = tp[0].position;
-        for (let i=0; i<tp.length; i++) {
+        for (let i = 0; i < tp.length; i++) {
             const chooseninput = L.circleMarker(tp[i].position, {
                 radius: 10,
                 color: 'green',       // Randfarbe
@@ -173,19 +182,19 @@ async function zeigeTreffpunkt() {
                 .addTo(map)
                 .bindPopup('<b>Hier ist ein möglicher Treffpunkt!</b>')
                 .openPopup();
-            
+
             await findandplotPOIs(tp[i].position);
         }
     } else {
         const chooseninput = L.circleMarker(point, {
-                radius: 10,
-                color: 'green',       // Randfarbe
-                fillColor: 'green',   // Füllfarbe
-                fillOpacity: 0.8
-            })
-                .addTo(map)
-                .bindPopup('<b>Hier ist der Treffpunkt!</b>')
-                .openPopup();
+            radius: 10,
+            color: 'green',       // Randfarbe
+            fillColor: 'green',   // Füllfarbe
+            fillOpacity: 0.8
+        })
+            .addTo(map)
+            .bindPopup('<b>Hier ist der Treffpunkt!</b>')
+            .openPopup();
     }
 }
 
@@ -255,12 +264,12 @@ function hinzufuegenCityBlock() {
 }
 
 window.removeCity = function (button) {
-  const block = button.closest('.city-block');
-  if (block) {
-    block.remove();
-  } else {
-    console.warn('Kein .city-block Element gefunden zum Entfernen.');
-  }
+    const block = button.closest('.city-block');
+    if (block) {
+        block.remove();
+    } else {
+        console.warn('Kein .city-block Element gefunden zum Entfernen.');
+    }
 };
 
 
