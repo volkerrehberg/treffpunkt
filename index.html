@@ -22,29 +22,26 @@
 
     <!-- Formular & Buttons -->
     <div class="flex flex-col gap-4 text-sm bg-white p-4 rounded shadow-md w-160">
-      <!-- <div>
-        <label for="coordinate-input-lat" class="block font-medium">Latitude:</label>
-        <input type="text" id="coordinate-input-lat" name="coordinate-input-lat" class="w-full p-2 border rounded" />
+
+      <div class="flex flex-col gap-3 p-4 bg-white rounded shadow-md">
+        <h2 class="text-lg font-semibold mb-2">Anforderungen an den Treffpunkt</h2>
+        <p class="text-sm text-gray-700">Wählen Sie die Eigenschaften für den gewünschten Treffpunkt</p>
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="see" checked onchange="toggleFilter(this)" class="accent-blue-600" />
+          <span>See</span>
+        </label>
+
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="kino" onchange="toggleFilter(this)" class="accent-blue-600" />
+          <span>Kino</span>
+        </label>
+
+        <label class="flex items-center gap-2 text-sm">
+          <input type="checkbox" name="bahnhof" onchange="toggleFilter(this)" class="accent-blue-600" />
+          <span>Bahnhof</span>
+        </label>
       </div>
-
-      <div>
-        <label for="coordinate-input-lon" class="block font-medium">Longitude:</label>
-        <input type="text" id="coordinate-input-lon" name="coordinate-input-lon" class="w-full p-2 border rounded" />
-      </div>
-
-      <button onclick="addCoordinate()" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-        Add Coordinate
-      </button> -->
-
-      <!-- <div>
-        <label for="city-input" class="block font-medium">City:</label>
-        <input type="text" id="city-input" name="city-input" class="w-full p-2 border rounded" />
-      </div>
-
-      <button onclick="addCity()" class="bg-green-500 text-white py-2 rounded hover:bg-green-600">
-        Add City
-      </button> -->
-
+    
       <!-- Container für alle City-Blöcke -->
       <div id="city-container" class="flex flex-col gap-4">
         <!-- Erster Eingabeblock -->

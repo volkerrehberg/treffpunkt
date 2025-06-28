@@ -68,6 +68,17 @@ window.addCity = function (button) {
     });
 }
 
+function toggleFilter (checkbox) {
+  const name = checkbox.name;
+  if (choosenFilters.hasOwnProperty(name)) {
+    choosenFilters[name] = checkbox.checked;
+    console.log(`Filter geändert: ${name} = ${checkbox.checked}`);
+    console.log(choosenFilters);
+  } else {
+    console.warn(`Unbekannter Filter: ${name}`);
+  }
+};
+
 async function getCoordinatesForCity(cityName) {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(cityName)}`;
     try {
@@ -169,8 +180,7 @@ const blueIcon = new L.Icon({
 
 async function zeigeTreffpunkt() {
     console.log("Button gecklicked");
-    // const marker = L.marker(, { icon: blueIcon })).addTo(map)
-    // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
+ 
     const tp = await findeTreffpunkt(choosenCoordinates, choosenFilters);
     var point = await findeTreffpunktPhysDist(choosenCoordinates, choosenFilters);
     if (tp.length > 0) {
@@ -239,11 +249,6 @@ async function zeigeTreffpunkt() {
     }
 
     console.log('Gefundene POIs:', pois, pois.length);
-// =======
-//         .addTo(map)
-//         .bindPopup('<b>Hier ist der Treffpunkt!</b>')
-//         .openPopup();
-// >>>>>>> Stashed changes
 }
 
 
@@ -267,10 +272,6 @@ function hinzufuegenCityBlock() {
     container.appendChild(block);
 }
 
-// window.removeCity = function (button) {
-//   const block = button.closest('.city-block');
-//   if (block) block.remove();
-// };
 window.removeCity = function (button) {
   const block = button.closest('.city-block');
   if (block) {
@@ -288,3 +289,5 @@ window.hinzufuegenCityBlock = hinzufuegenCityBlock;
 window.addCoordinate = addCoordinate;
 window.addCity = addCity;
 window.removeCity = removeCity;
+window.toggleFilter = toggleFilter;
+
