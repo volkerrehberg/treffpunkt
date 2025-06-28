@@ -6,13 +6,16 @@ export async function findPOIs(lat, lon, radius = 10000) {
         (
             node
                 (around:${radius},${lat},${lon})
-                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"]
+                [name];
             way
                 (around:${radius},${lat},${lon})
-                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"]
+                [name];
             relation
                 (around:${radius},${lat},${lon})
-                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"]
+                [name];
         );
         out center;
     `;
