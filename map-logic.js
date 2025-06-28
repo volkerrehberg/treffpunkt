@@ -166,7 +166,7 @@ async function zeigeTreffpunkt() {
     // const marker = L.marker(, { icon: blueIcon })).addTo(map)
     // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 
-    const chooseninput = L.circleMarker(await findeTreffpunkt(choosenCoordinates), {
+    const chooseninput = L.circleMarker(await findeTreffpunktPhysDist(choosenCoordinates), {
         radius: 10,
         color: 'green',       // Randfarbe
         fillColor: 'green',   // Füllfarbe
