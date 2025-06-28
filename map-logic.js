@@ -203,10 +203,10 @@ async function findandplotPOIs(point) {
     var num_pois = 0;
     var pois = null;
     while (num_pois < 5) {
-        radius += 500;
         pois = await findPOIs(point[0], point[1], radius);
         num_pois = pois.length;
         console.log(`Gefundene POIs im Radius von ${radius}m:`, num_pois);
+        radius += 2000;
     }
 
     for (let i = 0; i < 5; i++) {
