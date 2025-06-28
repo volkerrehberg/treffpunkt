@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8">
   <title>Finde euren Treffpunkt!</title>
@@ -7,11 +8,11 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
+
 <body class="p-6 bg-gray-100 relative">
 
   <!-- Logo oben links -->
-  <img src="media/treffpunkt-logo.png" alt="Logo"
-       class="fixed top-5 left-5 w-32 h-auto z-50 pointer-events-none">
+  <img src="media/treffpunkt-logo.png" alt="Logo" class="fixed top-5 left-5 w-32 h-auto z-50 pointer-events-none">
 
   <!-- Hauptinhalt -->
   <div class="flex gap-10 items-start mt-12"> <!-- mt-24 sorgt für Abstand zum Logo -->
@@ -20,8 +21,8 @@
     <div id="map" class="h-[600px] w-[600px] rounded shadow-lg bg-white"></div>
 
     <!-- Formular & Buttons -->
-    <div class="flex flex-col gap-4 text-sm bg-white p-4 rounded shadow-md w-80">
-      <div>
+    <div class="flex flex-col gap-4 text-sm bg-white p-4 rounded shadow-md w-160">
+      <!-- <div>
         <label for="coordinate-input-lat" class="block font-medium">Latitude:</label>
         <input type="text" id="coordinate-input-lat" name="coordinate-input-lat" class="w-full p-2 border rounded" />
       </div>
@@ -33,18 +34,41 @@
 
       <button onclick="addCoordinate()" class="bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
         Add Coordinate
-      </button>
+      </button> -->
 
-      <div>
+      <!-- <div>
         <label for="city-input" class="block font-medium">City:</label>
         <input type="text" id="city-input" name="city-input" class="w-full p-2 border rounded" />
       </div>
 
       <button onclick="addCity()" class="bg-green-500 text-white py-2 rounded hover:bg-green-600">
         Add City
+      </button> -->
+
+      <!-- Container für alle City-Blöcke -->
+      <div id="city-container" class="flex flex-col gap-4">
+        <!-- Erster Eingabeblock -->
+        <div class="city-block flex flex-wrap items-center gap-2">
+          <label class="font-medium whitespace-nowrap">City:</label>
+
+          <input type="text" name="city-input" class="flex-grow min-w-0 p-2 border rounded" />
+
+          <button onclick="addCity(this)" class="shrink-0 bg-black text-white py-2 px-3 rounded hover:bg-gray-800">
+            Add
+          </button>
+
+          <button onclick="removeCity(this)" class="shrink-0 bg-red-600 text-white py-2 px-3 rounded hover:bg-red-700">
+            Entfernen
+          </button>
+        </div>
+      </div>
+
+      <!-- Button zum Hinzufügen eines neuen Blocks -->
+      <button onclick="hinzufuegenCityBlock()" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+        Weitere Stadt hinzufügen
       </button>
 
-      <button onclick="zeigeTreffpunkt()" class="bg-purple-500 text-white py-2 rounded hover:bg-purple-600">
+      <button onclick="zeigeTreffpunkt()" class="bg-black text-white py-2 rounded hover:bg-gray-800">
         Zeige Treffpunkt!
       </button>
     </div>
@@ -55,4 +79,5 @@
   <script type="module" src="map-logic.js"></script>
 
 </body>
+
 </html>

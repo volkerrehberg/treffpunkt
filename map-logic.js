@@ -36,9 +36,9 @@ const polygon = L.polygon([
 
 const choosenCoordinates = [];
 const choosenFilters = {
-    see : true,
-    kino : false,
-    bahnhof : false,
+    see: true,
+    kino: false,
+    bahnhof: false,
 };
 
 // const popup = L.popup()
@@ -48,8 +48,8 @@ const choosenFilters = {
 
 const db_url = "postgresql://student:woshooyaefohshe0eegh8uSh5sa5pi3y@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require";
 
-function addCity() {
-    const cityInput = document.getElementById('city-input').value;
+window.addCity = function (button) {
+  const cityInput = button.parentElement.querySelector('input[name="city-input"]').value;
     if (!cityInput) {
         console.error('Please enter a city name.');
         return;
@@ -114,11 +114,11 @@ function parseCoordinate(input) {
 function addCoordinate() {
     const latInput = document.getElementById('coordinate-input-lat').value;
     const lonInput = document.getElementById('coordinate-input-lon').value;
-    
+
     if (!latInput || !lonInput) {
         console.error('Please enter both latitude and longitude.');
         return;
-    } else {   
+    } else {
         const lat = parseCoordinate(latInput);
         const lon = parseCoordinate(lonInput);
         if (isNaN(lat) || isNaN(lon)) {
@@ -146,7 +146,7 @@ function onMapClick(e) {
     choosenCoordinates.push([e.latlng.lat, e.latlng.lng]);
 
     const chooseninput = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map)
-    .bindPopup('Ausgangspunkt gesetzt').openPopup();
+        .bindPopup('Ausgangspunkt gesetzt').openPopup();
 
     console.log('Adding coordinate: ' + e.latlng.lat + ', ' + e.latlng.lng);
 
@@ -178,6 +178,7 @@ async function zeigeTreffpunkt() {
         fillColor: 'green',   // Füllfarbe
         fillOpacity: 0.8
     })
+// <<<<<<< Updated upstream
 .addTo(map)
 .bindPopup('<b>Hier ist der Treffpunkt!</b>')
 .openPopup();
@@ -223,10 +224,52 @@ async function zeigeTreffpunkt() {
     }
 
     console.log('Gefundene POIs:', pois, pois.length);
+// =======
+//         .addTo(map)
+//         .bindPopup('<b>Hier ist der Treffpunkt!</b>')
+//         .openPopup();
+// >>>>>>> Stashed changes
 }
+
+
+function hinzufuegenCityBlock() {
+    const container = document.getElementById("city-container");
+
+    const block = document.createElement("div");
+    block.className = "city-block flex flex-wrap items-center gap-2";
+
+    block.innerHTML = `
+      <label class="font-medium whitespace-nowrap">City:</label>
+      <input type="text" name="city-input" class="flex-grow min-w-0 p-2 border rounded" />
+      <button onclick="addCity(this)" class="shrink-0 bg-black text-white py-2 px-3 rounded hover:bg-gray-800">
+        Add
+      </button>
+      <button onclick="removeCity(this)" class="shrink-0 bg-red-600 text-white py-2 px-3 rounded hover:bg-red-700">
+        Entfernen
+      </button>
+    `;
+
+    container.appendChild(block);
+}
+
+// window.removeCity = function (button) {
+//   const block = button.closest('.city-block');
+//   if (block) block.remove();
+// };
+window.removeCity = function (button) {
+  const block = button.closest('.city-block');
+  if (block) {
+    block.remove();
+  } else {
+    console.warn('Kein .city-block Element gefunden zum Entfernen.');
+  }
+};
+
 
 map.on('click', onMapClick);
 
 window.zeigeTreffpunkt = await zeigeTreffpunkt;
+window.hinzufuegenCityBlock = hinzufuegenCityBlock;
 window.addCoordinate = addCoordinate;
 window.addCity = addCity;
+window.removeCity = removeCity;
