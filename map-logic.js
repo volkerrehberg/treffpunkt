@@ -174,7 +174,7 @@ async function zeigeTreffpunkt() {
                 .bindPopup('<b>Hier ist ein möglicher Treffpunkt!</b>')
                 .openPopup();
             
-            findandplotPOIs(tp[i].position);
+            await findandplotPOIs(tp[i].position);
         }
     } else {
         const chooseninput = L.circleMarker(point, {
@@ -190,7 +190,7 @@ async function zeigeTreffpunkt() {
 }
 
 async function findandplotPOIs(point) {
-    var radius = 0;
+    var radius = 5000;
     var num_pois = 0;
     var pois = null;
     while (num_pois < 5) {
