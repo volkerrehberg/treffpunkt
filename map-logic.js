@@ -1,4 +1,4 @@
-import { findeTreffpunkt } from './treffpunktfinder.js';
+import { findeTreffpunkt, findeTreffpunktPhysDist } from './treffpunktfinder.js';
 
 var southWest = L.latLng(40, 10), northEast = L.latLng(60, 12);
 var bounds = L.latLngBounds(southWest, northEast);
@@ -166,7 +166,7 @@ async function zeigeTreffpunkt() {
     // const marker = L.marker(, { icon: blueIcon })).addTo(map)
     // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
 
-    const chooseninput = L.circleMarker(await findeTreffpunkt(choosenCoordinates), {
+    const chooseninput = L.circleMarker(await findeTreffpunktPhysDist(choosenCoordinates), {
         radius: 10,
         color: 'green',       // Randfarbe
         fillColor: 'green',   // Füllfarbe
