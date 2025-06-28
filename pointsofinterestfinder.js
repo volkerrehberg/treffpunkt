@@ -1,12 +1,18 @@
-const fetch = require('node-fetch');
+// No import needed; fetch is available globally in Node.js 18+
 
-async function findPOIs(lat, lon, radius = 500) {
+export async function findPOIs(lat, lon, radius = 10000) {
     const query = `
         [out:json];
         (
             node
                 (around:${radius},${lat},${lon})
-                [amenity];
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
+            way
+                (around:${radius},${lat},${lon})
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
+            relation
+                (around:${radius},${lat},${lon})
+                [tourism~"^(attraction|museum|gallery|viewpoint|zoo|theme_park|aquarium|castle|monument|artwork|information|picnic_site|yes)$"];
         );
         out center;
     `;
@@ -25,8 +31,8 @@ async function findPOIs(lat, lon, radius = 500) {
     const data = await response.json();
     return data.elements.map(elem => ({
         id: elem.id,
-        lat: elem.lat,
-        lon: elem.lon,
+        lat: elem.lat || (elem.center && elem.center.lat),
+        lon: elem.lon || (elem.center && elem.center.lon),
         tags: elem.tags
     }));
 }

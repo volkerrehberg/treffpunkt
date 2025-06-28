@@ -1,4 +1,5 @@
 import { findeTreffpunkt, findeTreffpunktPhysDist } from './treffpunktfinder.js';
+import { findPOIs } from './pointsofinterestfinder.js';
 
 var southWest = L.latLng(40, 10), northEast = L.latLng(60, 12);
 var bounds = L.latLngBounds(southWest, northEast);
@@ -181,7 +182,47 @@ async function zeigeTreffpunkt() {
 .bindPopup('<b>Hier ist der Treffpunkt!</b>')
 .openPopup();
 
-    
+    var radius = 0;
+    var num_pois = 0;
+    var pois = null;
+    while (num_pois < 5) {
+        radius += 500;
+        pois = await findPOIs(point[0], point[1], radius);
+        num_pois = pois.length;
+        console.log(`Gefundene POIs im Radius von ${radius}m:`, num_pois);
+    }
+
+    for (let i = 0; i < 5; i++) {
+        if (pois[i]) {
+            const poi = pois[i];
+            const yellowStarIcon = L.divIcon({
+                className: 'custom-star-icon',
+                html: `<div style="
+                    background: yellow;
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 2px solid #FFD700;
+                    box-shadow: 0 0 4px #888;
+                ">
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+                        <polygon points="10,2 12.4,7.5 18.3,7.6 13.6,11.5 15.2,17.2 10,13.8 4.8,17.2 6.4,11.5 1.7,7.6 7.6,7.5" fill="#FFD700" stroke="#B8860B" stroke-width="1"/>
+                    </svg>
+                </div>`,
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
+            });
+            const poiMarker = L.marker([poi.lat, poi.lon], { icon: yellowStarIcon }).addTo(map)
+                .bindPopup(`<b>${poi.tags.name || poi.tags.amenity || 'POI'}</b><br>Lat: ${poi.lat}, Lon: ${poi.lon}`)
+                .openPopup();
+        }
+    }
+
+    console.log('Gefundene POIs:', pois, pois.length);
 }
 
 map.on('click', onMapClick);
