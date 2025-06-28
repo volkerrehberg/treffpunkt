@@ -171,17 +171,30 @@ async function zeigeTreffpunkt() {
     console.log("Button gecklicked");
     // const marker = L.marker(, { icon: blueIcon })).addTo(map)
     // .bindPopup('<b>Hier ist der Treffpunkt!</b>').openPopup();
-    const point = await findeTreffpunktPhysDist(choosenCoordinates, choosenFilters)
-    const chooseninput = L.circleMarker(point, {
-        radius: 10,
-        color: 'green',       // Randfarbe
-        fillColor: 'green',   // Füllfarbe
-        fillOpacity: 0.8
-    })
-// <<<<<<< Updated upstream
-.addTo(map)
-.bindPopup('<b>Hier ist der Treffpunkt!</b>')
-.openPopup();
+    const tp = await findeTreffpunkt(choosenCoordinates, choosenFilters);
+    if (tp.length > 0) {
+        for (let i=0; i<tp.length; i++) {
+            const chooseninput = L.circleMarker(tp[i].position, {
+                radius: 10,
+                color: 'green',       // Randfarbe
+                fillColor: 'green',   // Füllfarbe
+                fillOpacity: 0.8
+            })
+                .addTo(map)
+                .bindPopup('<b>Hier ist ein möglicher Treffpunkt!</b>')
+                .openPopup();
+        }
+    } else {
+        const chooseninput = L.circleMarker(await findeTreffpunktPhysDist(choosenCoordinates, choosenFilters), {
+                radius: 10,
+                color: 'green',       // Randfarbe
+                fillColor: 'green',   // Füllfarbe
+                fillOpacity: 0.8
+            })
+                .addTo(map)
+                .bindPopup('<b>Hier ist der Treffpunkt!</b>')
+                .openPopup();
+    }
 
     var radius = 0;
     var num_pois = 0;

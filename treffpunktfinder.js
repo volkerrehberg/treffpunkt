@@ -15,9 +15,14 @@ export async function findeTreffpunkt(inputKoordinaten, filters) {
   karr += "}";
   const db_url = "postgresql://hackathon:oadeingaedai5EDash3i@ep-tiny-king-a2lusfpk.eu-central-1.aws.neon.tech/dbis2?sslmode=require&channel_binding=require";
   const sql = N.neon(db_url);
-  const [pt] = await sql.query(`SELECT * from osm.find_meeting_point('${karr}'::float[][]);`);
+  const [pt] = await sql.query(`SELECT * from osm.find_meeting_point('${karr}'::float[][], ifilterlake := ${filters.see}, ifiltercine := ${filters.kino});`);
   console.log(pt);
-  return pt.olatlons[0];
+  let res = Array(pt.onames.length);
+  for (let i=0; i < pt.onames.length; i++) {
+    res[i] = {name: pt.onames[i], position: pt.olatlons[i]};
+  }
+  // return pt.olatlons[0];
+  return res;
 }
 
 export async function findeTreffpunktPhysDist(inputKoordinaten, inputFilter) {
